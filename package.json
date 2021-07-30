@@ -31,6 +31,10 @@
     "@onflow/types": "^0.0.5",
     "eslint": "^7.31.0",
     "eslint-config-next": "^11.0.1",
-    "jest": "^27.0.6"
+    "jest": "^27.0.6",
+    "jest-puppeteer": "^5.0.4"
+  },
+  "jest": {
+    "preset": "jest-puppeteer"
   }
 }
