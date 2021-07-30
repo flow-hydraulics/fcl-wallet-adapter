@@ -27,6 +27,8 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
+    "@onflow/fcl": "^0.0.76",
+    "@onflow/types": "^0.0.5",
     "eslint": "^7.31.0",
     "eslint-config-next": "^11.0.1",
     "jest": "^27.0.6"
