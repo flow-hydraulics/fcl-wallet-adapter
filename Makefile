@@ -5,6 +5,9 @@ build:
 	docker-compose down
 	docker-compose up --build -d
 
+clean:
+	docker-compose down
+
 deps:
 	npm install
 
