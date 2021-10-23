@@ -1,8 +1,5 @@
-all:
-	docker-compose up --build -d
-
-build:
-	docker-compose down
+build: clean
+	docker-compose pull
 	docker-compose up --build -d
 
 clean:
