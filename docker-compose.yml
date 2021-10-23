@@ -3,7 +3,7 @@ version: "3.3"
 
 services:
   emulator:
-    image: gcr.io/flow-container-registry/emulator:v0.22.0
+    image: gcr.io/flow-container-registry/emulator:0.24.0
     environment:
       - FLOW_SERVICEPRIVATEKEY=${ADMIN_PRIVATE_KEY}
       - FLOW_VERBOSE=true
@@ -20,7 +20,8 @@ services:
       - 4000:3000
 
   wallet:
-    image: gcr.io/flow-container-registry/wallet-api:v0.3.1
+    image: gcr.io/flow-container-registry/wallet-api:v0.6.0
+    restart: unless-stopped
     ports:
       - "3000:3000"
     environment:
@@ -52,9 +53,9 @@ services:
       start_period: 10s
 
   db:
-    image: postgres:13-alpine
-    ports:
-      - "5432:5432"
+    image: postgres:14-alpine
+    expose:
+      - 5432
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
