@@ -11,15 +11,8 @@ document.getElementById('authz-button').addEventListener('click', () => {
   frame.contentWindow.postMessage({ type: 'FCL:ADAPTER:AUTHZ' }, 'http://localhost:3000')
 })
 
-document.getElementById('loadIframeButton').addEventListener('click', (e) => {
-  iframe.src = '//localhost:3000?localhost:4001'
-})
-
 window.addEventListener('message', (message) => {
   switch (message.data?.type) {
-    case 'FCL:FRAME:READY':
-      console.log('ready!')
-      break
     case 'FCL:ADAPTER:AUTHN:RESPONSE':
       console.log(message.data)
       break

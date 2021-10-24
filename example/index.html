@@ -1,13 +1,23 @@
 <title>FCL Wallet Adapter: Example</title>
 <meta charset="utf-8">
 
-<div>
-  <h1>FCL Wallet Adapter</h1>
-  <button id="loadIframeButton">Load iframe</button>
-  <iframe id="fcl-adapter-frame"></iframe>
+<body>
+  <div>
+    <h1>FCL Wallet Adapter</h1>
+    <iframe
+      src="http://localhost:3000"
+      id="fcl-adapter-frame">
+    </iframe>
 
   <button id="authn-button">Post Message (authn)</button>
   <button id="authz-button">Post Message (authz)</button>
 </div>
 
-<script src="app.js"></script>
+    <button id="newAccountButton">New Account</button>
+
+    <button id="authn-button">Post Message (authn)</button>
+    <button id="authz-button">Post Message (authz)</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
