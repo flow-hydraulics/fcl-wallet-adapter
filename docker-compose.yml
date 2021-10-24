@@ -20,7 +20,7 @@ services:
       - 4000:3000
 
   wallet:
-    image: gcr.io/flow-container-registry/wallet-api:v0.6.0
+    image: ghcr.io/flow-hydraulics/flow-wallet-api:0.7.0
     restart: unless-stopped
     ports:
       - "3000:3000"
