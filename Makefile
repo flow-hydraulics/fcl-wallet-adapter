@@ -1,14 +1,17 @@
-build: clean
+build:
 	docker-compose pull
 	docker-compose up --build -d
 
 clean:
 	docker-compose down
+	rm -rf node_modules
 
-deps:
+rebuild: clean build
+
+node_modules:
 	npm install
 
-test: build deps
+test: rebuild node_modules
 	npm test
 	docker-compose down
 
