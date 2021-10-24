@@ -17,13 +17,16 @@ services:
   fcl-wallet-adapter:
     build: .
     ports:
-      - 4000:3000
+      - 3000:3000
+      - 49153:49153
+    volumes:
+      - ./pages:/app/pages
+      - ./public:/app/public
+    command: npm run dev
 
   wallet:
     image: ghcr.io/flow-hydraulics/flow-wallet-api:0.7.0
     restart: unless-stopped
-    ports:
-      - "3000:3000"
     environment:
       - FLOW_WALLET_DATABASE_TYPE=psql
       - FLOW_WALLET_DATABASE_DSN=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
