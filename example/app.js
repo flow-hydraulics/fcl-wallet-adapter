@@ -4,15 +4,15 @@ document.getElementById('authn-button').addEventListener('click', () => {
   frame.contentWindow.postMessage({
     type: 'FCL:ADAPTER:AUTHN',
     authToken: 'dummy-token'
-  }, 'http://localhost:4000')
+  }, 'http://localhost:3000')
 })
 
 document.getElementById('authz-button').addEventListener('click', () => {
-  frame.contentWindow.postMessage({ type: 'FCL:ADAPTER:AUTHZ' }, 'http://localhost:4000')
+  frame.contentWindow.postMessage({ type: 'FCL:ADAPTER:AUTHZ' }, 'http://localhost:3000')
 })
 
 document.getElementById('loadIframeButton').addEventListener('click', (e) => {
-  iframe.src = '//localhost:4000?localhost:4001'
+  iframe.src = '//localhost:3000?localhost:4001'
 })
 
 window.addEventListener('message', (message) => {
