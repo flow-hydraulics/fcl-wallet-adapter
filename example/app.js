@@ -1,4 +1,5 @@
 const iframe = document.getElementById('fcl-adapter-frame')
+const log = document.getElementById('logs')
 
 document.getElementById('authn-button').addEventListener('click', () => {
   frame.contentWindow.postMessage({
@@ -12,6 +13,10 @@ document.getElementById('authz-button').addEventListener('click', () => {
 })
 
 window.addEventListener('message', (message) => {
+  console.log(message)
+
+  const { type, log } = message.data
+
   switch (message.data?.type) {
     case 'FCL:ADAPTER:AUTHN:RESPONSE':
       console.log(message.data)
@@ -21,5 +26,10 @@ window.addEventListener('message', (message) => {
       break
     default:
       break
+  }
+
+  if (log) {
+    logs.innerHTML += `[${type}]: ${log}`
+    logs.innerHTML += "\n\n"
   }
 }, false)
