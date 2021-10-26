@@ -14,6 +14,20 @@ services:
       - "3569:3569"
       - "8080:8080"
 
+  fcl-dev-wallet:
+    image: ghcr.io/onflow/fcl-dev-wallet:0.1.0
+    ports:
+      - "8701:8701"
+    environment:
+      - PORT=8701
+      - FLOW_ACCESS_NODE=http://emulator:8080
+      - FLOW_ACCOUNT_KEY_ID=0
+      - FLOW_ACCOUNT_PRIVATE_KEY=4f82df6790f07b281adb5bbc848bd6298a2de67f94bdfac7a400d5a1b893de5
+      - FLOW_ACCOUNT_PUBLIC_KEY=519e9fbf966c6589fafe60903c0da5f55c5cb50aee5d870f097b35dfb6de13c170718cd92f50811cdd9290e51c2766440b696e0423a5031ae482cca79e3c479
+      - FLOW_INIT_ACCOUNTS=0
+      - FLOW_ACCOUNT_ADDRESS=${ADMIN_ADDRESS}
+      - FLOW_AVATAR_URL=https://avatars.onflow.org/avatar/
+
   fcl-wallet-adapter:
     build: .
     ports:
