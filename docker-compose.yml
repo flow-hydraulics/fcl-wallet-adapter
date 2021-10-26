@@ -33,6 +33,9 @@ services:
     ports:
       - 4000:3000
       - 49153:49153
+    environment:
+      - WALLET_HOST=${WALLET_HOST}
+      - WALLET_PORT=${WALLET_PORT}
     volumes:
       - ./pages:/app/pages
       - ./public:/app/public

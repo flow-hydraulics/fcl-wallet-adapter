@@ -61,15 +61,14 @@ function HomePage(props) {
 // Use this to look up the IP address of
 // the `wallet` service at build time
 export async function getStaticProps() {
-  const dns = require('dns')
-  const { promisify } = require('util')
-
-  const lookup = promisify(dns.lookup)
-  const { address } = await lookup('wallet')
+  console.log(process.env)
 
   return {
     props: {
-      walletIP: address
+      wallet: {
+        host: process.env.WALLET_HOST || 'wallet',
+        port: process.env.WALLET_PORT || '3000'
+      }
     }
   }
 }
