@@ -2,6 +2,7 @@ FROM node:alpine
 
 # RUN apk add --no-cache libc6-compat
 # RUN apk add --no-cache inotify-tools
+RUN apk add --no-cache curl
 
 WORKDIR /app
 COPY package.json ./
