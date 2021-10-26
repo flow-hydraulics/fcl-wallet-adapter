@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
+import {WalletUtils} from "@onflow/fcl"
+
 function HomePage(props) {
   useEffect(() => {
     const target = document.referrer
@@ -27,19 +29,30 @@ function HomePage(props) {
     }
 
     window.addEventListener('message', handleMessage);
-    window.parent?.postMessage({
-      type: 'FCL:FRAME:READY',
-      log: 'iFrame ready'
-    }, target);
+    WalletUtils.sendMsgToFCL("FCL:VIEW:READY")
 
     return () => {
       window.removeEventListener('message', handleMessage)
     }
   })
 
+  function closeFrame () {
+    WalletUtils.sendMsgToFCL("FCL:FRAME:CLOSE")
+  }
+
   return (
     <>
-      <div>FCL Wallet Adapter { props.walletIP }</div>
+      <div style={
+        {
+          background: "white",
+          width: "40vw",
+          height: "80vh",
+          margin: "0 auto"
+        }
+      }>
+        <div>FCL Wallet Adapter { props.wallet.host } { props.wallet.port }</div>
+        <button onClick={closeFrame}>Cancel</button>
+      </div>
     </>
   )
 }

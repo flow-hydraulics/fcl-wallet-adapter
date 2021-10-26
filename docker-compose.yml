@@ -57,18 +57,14 @@ services:
       - emulator
 
   example:
-    container_name: fcl-adapter-example
-    image: nginx:mainline-alpine
+    container_name: fcl-wallet-example
+    build:
+      context: ./example
+      target: development
     volumes:
-      - ./example:/usr/share/nginx/html
+      - ./example/src:/app/src
     ports:
-      - "4001:80"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80"]
-      interval: 1m
-      timeout: 5s
-      retries: 3
-      start_period: 10s
+      - 4001:3000
 
   db:
     image: postgres:14-alpine
