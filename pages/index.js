@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 
 function HomePage(props) {
   useEffect(() => {
-    const target = 'http://' + window.location.search.substr(1)
+    const target = document.referrer
 
     async function handleMessage (msg) {
       switch (msg.data.type) {
