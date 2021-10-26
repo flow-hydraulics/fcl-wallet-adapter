@@ -3,6 +3,36 @@ import { useRouter } from 'next/router'
 
 import {WalletUtils} from "@onflow/fcl"
 
+function readyCallback(data) {
+  console.log(data)
+
+  if (typeof data != "object") return
+  if (typeof data.type !== "FCL:VIEW:READY:RESPONSE") return
+
+  // Do authentication things
+  // Show address field if it's an authn request?
+
+  // Send back AuthnResponse
+  WalletUtils.sendMsgToFCL("FCL:VIEW:RESPONSE", {
+    f_type: "PollingResponse",
+    f_vsn: "1.0.0",
+    status: "APPROVED",
+    // addr: "0xUSER"
+    data: {
+      f_type: "AuthnResponse",
+      f_vsn: "1.0.0"
+      // ...
+    }
+  })
+
+  // The same AuthnResponse can alternatively be sent using WalletUtils.approve (or WalletUtils.decline)
+  WalletUtils.approve({
+    f_type: "AuthnResponse",
+    f_vsn: "1.0.0"
+    // ...
+  })
+}
+
 function HomePage(props) {
   useEffect(() => {
     const target = document.referrer
@@ -28,16 +58,16 @@ function HomePage(props) {
       }
     }
 
-    window.addEventListener('message', handleMessage);
+    WalletUtils.onMessageFromFCL("FCL:VIEW:READY:RESPONSE", readyCallback)
     WalletUtils.sendMsgToFCL("FCL:VIEW:READY")
 
     return () => {
-      window.removeEventListener('message', handleMessage)
+      WalletUtils.onMessageFromFCL("FCL:VIEW:READY:RESPONSE", () => {})
     }
   })
 
   function closeFrame () {
-    WalletUtils.sendMsgToFCL("FCL:FRAME:CLOSE")
+    WalletUtils.sendMsgToFCL("FCL:VIEW:CLOSE")
   }
 
   return (
