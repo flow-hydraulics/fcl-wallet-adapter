@@ -9,14 +9,14 @@ function HomePage(props) {
       switch (msg.data.type) {
         case 'FCL:ADAPTER:AUTHN':
           const resAuthn = await fetch('/api/authn', { method: 'POST' })
-          window.parent.postMessage({
+          window.parent?.postMessage({
             type: 'FCL:ADAPTER:AUTHN:RESPONSE',
             res: (await resAuthn.json())
           }, target)
           break
         case 'FCL:ADAPTER:AUTHZ':
           const resAuthz = await fetch('/api/authz', { method: 'POST' })
-          window.parent.postMessage({
+          window.parent?.postMessage({
             type: 'FCL:ADAPTER:AUTHZ:RESPONSE',
             res: (await resAuthz.json())
           }, target)
@@ -26,8 +26,11 @@ function HomePage(props) {
       }
     }
 
-    window.addEventListener('message', handleMessage)
-    window.parent.postMessage({ type: 'FCL:FRAME:READY' }, target)
+    window.addEventListener('message', handleMessage);
+    window.parent?.postMessage({
+      type: 'FCL:FRAME:READY',
+      log: 'iFrame ready'
+    }, target);
 
     return () => {
       window.removeEventListener('message', handleMessage)
