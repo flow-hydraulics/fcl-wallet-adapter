@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
-
-function HomePage() {
+function HomePage(props) {
   useEffect(() => {
     const target = 'http://' + window.location.search.substr(1)
 
@@ -35,7 +34,28 @@ function HomePage() {
     }
   })
 
-  return <div>Welcome to Next.js!</div>
+  return (
+    <>
+      <div>FCL Wallet Adapter { props.walletIP }</div>
+    </>
+  )
+}
+
+
+// Use this to look up the IP address of
+// the `wallet` service at build time
+export async function getStaticProps() {
+  const dns = require('dns')
+  const { promisify } = require('util')
+
+  const lookup = promisify(dns.lookup)
+  const { address } = await lookup('wallet')
+
+  return {
+    props: {
+      walletIP: address
+    }
+  }
 }
 
 export default HomePage
