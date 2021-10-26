@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:lts-alpine
 
 # RUN apk add --no-cache libc6-compat
 # RUN apk add --no-cache inotify-tools
