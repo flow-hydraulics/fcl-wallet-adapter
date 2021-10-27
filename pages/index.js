@@ -7,31 +7,55 @@ function readyCallback(data) {
   console.log(data)
 
   if (typeof data != "object") return
-  if (typeof data.type !== "FCL:VIEW:READY:RESPONSE") return
+  if (data.type !== "FCL:VIEW:READY:RESPONSE") return
 
-  // Do authentication things
-  // Show address field if it's an authn request?
+  fetch("http://localhost:4000/api/authn")
+    .then(res => res.json())
+    .then(accounts => {
+      if(accounts.length === 0 || !accounts[0].address) {
+        throw new Error("No accounts found")
+      }
 
-  // Send back AuthnResponse
-  WalletUtils.sendMsgToFCL("FCL:VIEW:RESPONSE", {
-    f_type: "PollingResponse",
-    f_vsn: "1.0.0",
-    status: "APPROVED",
-    // addr: "0xUSER"
-    data: {
-      f_type: "AuthnResponse",
-      f_vsn: "1.0.0"
-      // ...
-    }
-  })
+      console.log(accounts[0].address)
 
-  // The same AuthnResponse can alternatively be sent using WalletUtils.approve (or WalletUtils.decline)
-  WalletUtils.approve({
-    f_type: "AuthnResponse",
-    f_vsn: "1.0.0"
-    // ...
-  })
-}
+      WalletUtils.approve({
+        f_type: "AuthnResponse",
+        f_vsn: "1.0.0",
+        addr: accounts[0].address,
+        services: [
+          {
+            f_type: "Service",
+            f_vsn: "1.0.0",
+            type: "authn",
+            method: "DATA",
+            uid: "flow-wallet-api#authn",
+            endpoint: "http://localhost:4001/api/authn",
+            id: accounts[0].address,
+            identity: {
+              f_type: "Identity",
+              f_vsn: "1.0.0",
+              address: accounts[0].address,
+              keyId: 0
+            },
+            provider: {
+              f_type: "ServiceProvider",
+              f_vsn: "1.0.0",
+              address: accounts[0].address
+              // name: "Amazing Wallet",         // OPTIONAL - The name of your wallet. ie: "Dapper Wallet" or "Blocto Wallet"
+              // description: "The best wallet", // OPTIONAL - A short description for your wallet
+              // icon: "https://___",            // OPTIONAL - Image url for your wallets icon
+              // website: "https://___",         // OPTIONAL - Your wallets website
+              // supportUrl: "https://___",      // OPTIONAL - An url the user can use to get support from you
+              // supportEmail: "help@aw.com",    // OPTIONAL - An email the user can use to get support from you
+            }
+          }
+        ]
+      })
+    })
+    .catch(err => {
+      WalletUtils.decline(err.message)
+    })
+  }
 
 function HomePage(props) {
   useEffect(() => {
