@@ -4,8 +4,6 @@ import { useRouter } from 'next/router'
 import {WalletUtils} from "@onflow/fcl"
 
 function readyCallback(data) {
-  console.log(data)
-
   if (typeof data != "object") return
   if (data.type !== "FCL:VIEW:READY:RESPONSE") return
 
@@ -15,8 +13,6 @@ function readyCallback(data) {
       if(accounts.length === 0 || !accounts[0].address) {
         throw new Error("No accounts found")
       }
-
-      console.log(accounts[0].address)
 
       WalletUtils.approve({
         f_type: "AuthnResponse",
@@ -115,8 +111,6 @@ function HomePage(props) {
 // Use this to look up the IP address of
 // the `wallet` service at build time
 export async function getStaticProps() {
-  console.log(process.env)
-
   return {
     props: {
       wallet: {
