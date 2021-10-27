@@ -55,29 +55,6 @@ function readyCallback(data) {
 
 function HomePage(props) {
   useEffect(() => {
-    const target = document.referrer
-
-    async function handleMessage (msg) {
-      switch (msg.data.type) {
-        case 'FCL:ADAPTER:AUTHN':
-          const resAuthn = await fetch('/api/authn', { method: 'POST' })
-          window.parent?.postMessage({
-            type: 'FCL:ADAPTER:AUTHN:RESPONSE',
-            res: (await resAuthn.json())
-          }, target)
-          break
-        case 'FCL:ADAPTER:AUTHZ':
-          const resAuthz = await fetch('/api/authz', { method: 'POST' })
-          window.parent?.postMessage({
-            type: 'FCL:ADAPTER:AUTHZ:RESPONSE',
-            res: (await resAuthz.json())
-          }, target)
-          break
-        default:
-          break
-      }
-    }
-
     WalletUtils.onMessageFromFCL("FCL:VIEW:READY:RESPONSE", readyCallback)
     WalletUtils.sendMsgToFCL("FCL:VIEW:READY")
 
