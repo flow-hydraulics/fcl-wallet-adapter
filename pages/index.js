@@ -96,7 +96,7 @@ export async function getStaticProps() {
   return {
     props: {
       wallet: {
-        host: process.env.WALLET_HOST || 'wallet',
+        host: process.env.WALLET_HOST || 'localhost',
         port: process.env.WALLET_PORT || '3000'
       }
     }

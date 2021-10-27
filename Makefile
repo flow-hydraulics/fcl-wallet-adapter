@@ -26,5 +26,5 @@ test: rebuild node_modules
 	echo "POSTGRES_DB=wallet" >> .env
 	echo "POSTGRES_USER=wallet" >> .env
 	echo "POSTGRES_PASSWORD=wallet" >> .env
-	echo "WALLET_HOST=wallet" >> .env
+	echo "WALLET_HOST=localhost" >> .env
 	echo "WALLET_PORT=3000" >> .env
