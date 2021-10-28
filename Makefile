@@ -1,3 +1,9 @@
+# export vars from root env file
+ifneq (,$(wildcard ./.env))
+	include .env
+	export
+endif
+
 build:
 	docker-compose pull
 	docker-compose up --build -d
@@ -7,6 +13,8 @@ clean:
 	rm -rf node_modules
 
 rebuild: clean build
+	cd example && flow accounts create --key $(PROFILE_CONTRACT_PUBLIC_KEY)
+	cd example && flow project deploy
 
 node_modules:
 	npm install
