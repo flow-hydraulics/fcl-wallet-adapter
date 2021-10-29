@@ -44,6 +44,22 @@ function readyCallback(data) {
               // supportUrl: "https://___",      // OPTIONAL - An url the user can use to get support from you
               // supportEmail: "help@aw.com",    // OPTIONAL - An email the user can use to get support from you
             }
+          },
+          {
+            f_type: "Service",
+            f_vsn: "1.0.0",
+            type: "authz",
+            uid: "flow-wallet-api#authz",
+            method: "IFRAME/RPC",
+            endpoint: "http://localhost:4000/api/authz",
+            identity: {
+              f_type: "Identity",
+              f_vsn: "1.0.0",
+              address: accounts[0].address,
+              keyId: 0
+            },
+            data: {},
+            params: {}
           }
         ]
       })
