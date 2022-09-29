@@ -1,4 +1,8 @@
 # FCL Wallet Adapter
+
+**NOTE: This repository is currently not maintained.**
+
+
 > Wallet authentication and authorization support for your FCL-based applications on Flow.
 
 [![Build and Test](https://github.com/flow-hydraulics/fcl-wallet-adapter/actions/workflows/build-test.yml/badge.svg)](https://github.com/flow-hydraulics/fcl-wallet-adapter/actions/workflows/build-test.yml)
